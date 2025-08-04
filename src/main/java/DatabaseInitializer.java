@@ -10,7 +10,7 @@
 // derby.jar, derbyClient.jar, derbyNet.jar, and derbyOptionalTools.jar.
 // I’m not sure if all are necessary, but since this setup works for me, I’m keeping it as is.
 
-//You can create your table in schema.sql file
+//You can add to your table in schema.sql file
 
 import java.sql.Connection;
 import java.sql.DriverManager;
