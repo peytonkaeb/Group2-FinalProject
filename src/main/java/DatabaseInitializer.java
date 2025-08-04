@@ -23,6 +23,7 @@ public class DatabaseInitializer {
 
     public static void main(String[] args) {
         createConnection();
+      //  dropTablesIfExist();   //can delete or use
         createTables();
         shutdown();
         System.out.println("Database initialized with tables only.");
@@ -37,66 +38,79 @@ public class DatabaseInitializer {
             except.printStackTrace();
         }
     }
-
-    private static void createTables() {
-        String createUsersTable = 
-            "CREATE TABLE users (" +
-            " user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, " +
-            " username VARCHAR(100) UNIQUE NOT NULL, " +
-            " password_hash VARCHAR(255) NOT NULL, " +
-            " email VARCHAR(150) UNIQUE NOT NULL, " +
-            " created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
-            ")";
-        
-        String createAccountsTable = 
-            "CREATE TABLE accounts (" +
-            " account_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, " +
-            " user_id INT NOT NULL, " +
-            " account_name VARCHAR(100), " +
-            " balance DECIMAL(12,2) DEFAULT 0.00, " +
-            " FOREIGN KEY (user_id) REFERENCES users(user_id)" +
-            ")";
-        
-        String createTransactionsTable = 
-            "CREATE TABLE transactions (" +
-            " txn_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, " +
-            " account_id INT NOT NULL, " +
-            " amount DECIMAL(12,2) NOT NULL, " +
-            " txn_type VARCHAR(20) CHECK (txn_type IN ('deposit','withdrawal','transfer')), " +
-            " description VARCHAR(255), " +
-            " txn_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-            " FOREIGN KEY (account_id) REFERENCES accounts(account_id)" +
-            ")";
-
+    
+ /*   private static void dropTablesIfExist() {
         try (Statement stmt = conn.createStatement()) {
-            // Create users table
             try {
-                stmt.executeUpdate(createUsersTable);
-                System.out.println("Created table 'users'.");
+                stmt.executeUpdate("DROP TABLE APP.MONTHLY_EXPENSES");
+                System.out.println("Dropped table: monthly_expenses");
             } catch (SQLException e) {
-                System.out.println("Table 'users' already exists or error: " + e.getMessage());
+                System.out.println("Could not drop monthly_expenses: " + e.getMessage());
             }
-
-            // Create accounts table
             try {
-                stmt.executeUpdate(createAccountsTable);
-                System.out.println("Created table 'accounts'.");
+                stmt.executeUpdate("DROP TABLE APP.MONTHLY_INCOME");
+                System.out.println("Dropped table: monthly_income");
             } catch (SQLException e) {
-                System.out.println("Table 'accounts' already exists or error: " + e.getMessage());
+                System.out.println("Could not drop monthly_income: " + e.getMessage());
             }
-
-            // Create transactions table
             try {
-                stmt.executeUpdate(createTransactionsTable);
-                System.out.println("Created table 'transactions'.");
+                stmt.executeUpdate("DROP TABLE APP.USERS");
+                System.out.println("Dropped table: users");
             } catch (SQLException e) {
-                System.out.println("Table 'transactions' already exists or error: " + e.getMessage());
+                System.out.println("Could not drop users: " + e.getMessage());
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+*/
+
+    private static void createTables() {
+    	  String createUsersTable = 
+    		        "CREATE TABLE users (" +
+    		        " user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, " +
+    		        " username VARCHAR(100) UNIQUE NOT NULL, " +
+    		        " password VARCHAR(255) NOT NULL, " +
+    		        " balance DECIMAL(12,2) DEFAULT 0.00, " +
+    		        " monthly_savings DECIMAL(12,2) DEFAULT 0.00" +
+    		        ")";
+
+        String createMonthlyIncomeTable = 
+            "CREATE TABLE monthly_income (" +
+            " income_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY" +
+            ")";
+
+        String createMonthlyExpensesTable = 
+            "CREATE TABLE monthly_expenses (" +
+            " expense_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY" +
+            ")";
+
+        try (Statement stmt = conn.createStatement()) {
+            try {
+                stmt.executeUpdate(createUsersTable);
+                System.out.println("Created table: users");
+            } catch (SQLException e) {
+                System.out.println("Table 'users' already exists or error: " + e.getMessage());
+            }
+
+            try {
+                stmt.executeUpdate(createMonthlyIncomeTable);
+                System.out.println("Created table: monthly_income");
+            } catch (SQLException e) {
+                System.out.println("Table 'monthly_income' already exists or error: " + e.getMessage());
+            }
+
+            try {
+                stmt.executeUpdate(createMonthlyExpensesTable);
+                System.out.println("Created table: monthly_expenses");
+            } catch (SQLException e) {
+                System.out.println("Table 'monthly_expenses' already exists or error: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private static void shutdown() {
         try {
