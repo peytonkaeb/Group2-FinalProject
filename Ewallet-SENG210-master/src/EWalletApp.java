@@ -115,7 +115,7 @@ public class EWalletApp {
 		//Creating GUI stuff
 		JLabel incomeLabel = new JLabel("Add Income (per month)"); 
 		JLabel expenseLabel = new JLabel("Add Expense"); 
-		
+				
 		JTextField incomeInput = new JTextField();
 		JTextField expenseInput = new JTextField();
 		
@@ -130,7 +130,13 @@ public class EWalletApp {
 		
 		
 		JButton confirmIncomeButton = new JButton("Add");
+		JButton loadIncomeFromFileButton = new JButton("Import Income");
+		loadIncomeFromFileButton.addActionListener(event -> importReport());   //TEMPORARY -> Replace with intended functionality when ready
+
 		JButton confirmExpenseButton = new JButton("Add");
+		JButton loadExpenseFromFileButton = new JButton("Import Expense");
+		loadExpenseFromFileButton.addActionListener(event -> importReport());   //TEMPORARY -> Replace with intended functionality when ready
+		
 		// JButton reportButton = new JButton("Print an Expense Report");
 		
 		// Button to open generate report dialog (you can move this wherever)
@@ -239,12 +245,14 @@ public class EWalletApp {
 		incomePanel.add(incomeLabel);
 		incomePanel.add(incomeInput);
 		incomePanel.add(confirmIncomeButton);
+		incomePanel.add(loadIncomeFromFileButton);
 		incomePanel.add(incomeConfirmation);
 		
 		expensePanel.add(expenseLabel);
 		expensePanel.add(expenseInput);
 		expensePanel.add(confirmExpenseButton);
 		expensePanel.add(expenseConfirmation);
+		expensePanel.add(loadExpenseFromFileButton);
 		
 		buttonsPanel.add(generateReportButton, BorderLayout.NORTH);
 		buttonsPanel.add(importReportButton, BorderLayout.SOUTH);
