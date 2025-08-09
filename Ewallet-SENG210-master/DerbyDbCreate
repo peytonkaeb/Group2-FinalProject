@@ -1,0 +1,35 @@
+CREATE TABLE "User" (
+    Username VARCHAR(255) PRIMARY KEY,
+    pwd VARCHAR(255) NOT NULL,
+    balance DOUBLE,
+    monthlySavings DOUBLE
+);
+--------------------------------------------------------------------------------
+
+CREATE TABLE Currency (
+    name VARCHAR(255) PRIMARY KEY,
+    rate DOUBLE,
+    convertedAmount DOUBLE
+);
+--------------------------------------------------------------------------------
+CREATE TABLE Wage (
+    id INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY,
+    Username VARCHAR(255),
+    source VARCHAR(255),
+    amount DOUBLE,
+    month VARCHAR(255),
+    hourlyRate DOUBLE,
+    hoursWorked INT,
+    FOREIGN KEY (Username) REFERENCES "User"(Username)
+);
+--------------------------------------------------------------------------------
+CREATE TABLE Expense (
+    id INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY,
+    Username VARCHAR(255),
+    category VARCHAR(255),
+    amount DOUBLE,
+    yearlyFrequency INT,
+    currencyName VARCHAR(255),
+    FOREIGN KEY (Username) REFERENCES "User"(Username),
+    FOREIGN KEY (currencyName) REFERENCES Currency(name)
+);
