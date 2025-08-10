@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Timer;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.AbstractDocument;
@@ -33,7 +37,14 @@ public class EWalletApp {
     private ArrayList<User> allData;
     private static ExpenseCalculator expenseCalculator = new ExpenseCalculator();
     private static User currUser = new User();
-
+    private static String dbURLembedded = "jdbc:derby:C:/Users/gorby/MyDB;create=true";
+    private static String dbURL = "jdbc:derby://localhost:1527/myDB;create=true";
+    
+    private static String expenseTableName = "EXPENSE";
+    
+    
+    private static Connection conn = null;
+    private static Statement stmt = null;
 
     public static void main(String[] args) {
         ExpenseCalculator expenseCalculator = new ExpenseCalculator(); // had to create here to get around static BS
@@ -119,6 +130,7 @@ public class EWalletApp {
 		JTextField incomeInput = new JTextField();
 		JTextField expenseInput = new JTextField();
 		
+		
 		//little messages that show up under the input areas to show it went through
 		JLabel incomeConfirmation = new JLabel("");
 		JLabel expenseConfirmation = new JLabel("");
@@ -137,7 +149,7 @@ public class EWalletApp {
 		JButton loadExpenseFromFileButton = new JButton("Import Expense");
 		JButton saveExpenseButton = new JButton("Save Expense");
 		loadExpenseFromFileButton.addActionListener(event -> importReport());   //TEMPORARY -> Replace with intended functionality when ready
-		saveExpenseButton.addActionListener(event -> saveExpense());
+		saveExpenseButton.addActionListener(event -> saveExpense(expenseInput));
 		
 		// JButton reportButton = new JButton("Print an Expense Report");
 		
@@ -360,8 +372,38 @@ public class EWalletApp {
 		}
 	}
 	
-	private static void saveExpense() {
-		
+	private static void saveExpense(JTextField expenseInput) {
+	    try {
+	        createConnection();
+
+	        String sql = "INSERT INTO EXPENSE (USERNAME, CATEGORY, AMOUNT, YEARLYFREQUENCY, CURRENCYNAME) VALUES (?, ?, ?, ?, ?)";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	        String expenseText = expenseInput.getText();
+	        double expenseAmount = Double.parseDouble(expenseText);
+
+	        pstmt.setString(1, "admin");
+	        pstmt.setString(2, "genericCategory");
+	        pstmt.setDouble(3, expenseAmount);
+	        pstmt.setInt(4, 12);
+	        pstmt.setString(5, "USD");
+	        System.out.println(pstmt.executeUpdate());
+
+	        pstmt.close();
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	    }
+	}
+	
+	private static void createConnection() {
+		try {
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+			conn = DriverManager.getConnection(dbURLembedded);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("hooray");
 	}
 
 	// Used to select what kind of report to display 

@@ -19,8 +19,7 @@ CREATE TABLE Wage (
     amount DOUBLE,
     month VARCHAR(255),
     hourlyRate DOUBLE,
-    hoursWorked INT,
-    FOREIGN KEY (Username) REFERENCES "User"(Username)
+    hoursWorked INT
 );
 --------------------------------------------------------------------------------
 CREATE TABLE Expense (
@@ -29,7 +28,5 @@ CREATE TABLE Expense (
     category VARCHAR(255),
     amount DOUBLE,
     yearlyFrequency INT,
-    currencyName VARCHAR(255),
-    FOREIGN KEY (Username) REFERENCES "User"(Username),
-    FOREIGN KEY (currencyName) REFERENCES Currency(name)
+    currencyName VARCHAR(255)
 );

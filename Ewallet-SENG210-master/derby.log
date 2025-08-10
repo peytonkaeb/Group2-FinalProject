@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Aug 10 12:09:59 EDT 2025:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0198-94be-f417-00002e758280 
+on database directory C:\Users\gorby\MyDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6d03e736 
+Loaded from file:/C:/Users/gorby/Documents/GitHub/Group2-FinalProject/Ewallet-SENG210-master/lib/derby.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=21.0.8+9-LTS
+user.dir=C:\Users\gorby\Documents\GitHub\Group2-FinalProject\Ewallet-SENG210-master
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
