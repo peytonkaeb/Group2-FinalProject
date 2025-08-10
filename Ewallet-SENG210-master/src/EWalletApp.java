@@ -110,7 +110,7 @@ public class EWalletApp {
 		JFrame jframe = new JFrame();
 		jframe.setTitle("E-Wallet App");
 		jframe.setDefaultCloseOperation(jframe.EXIT_ON_CLOSE);
-		jframe.setSize(400, 300);
+		jframe.setSize(800, 300);
 		
 		//Creating GUI stuff
 		JLabel incomeLabel = new JLabel("Add Income (per month)"); 
@@ -234,39 +234,93 @@ public class EWalletApp {
 			
 		});*/
 		
-		
-		//Panels, to organize page
-		JPanel incomePanel = new JPanel();
-		incomePanel.setLayout(new BoxLayout(incomePanel, BoxLayout.Y_AXIS));
-		JPanel expensePanel = new JPanel();
-		expensePanel.setLayout(new BoxLayout(expensePanel, BoxLayout.Y_AXIS));
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setLayout(new BorderLayout());
-		
-		//Add features to GUI
-		incomePanel.add(incomeLabel);
-		incomePanel.add(incomeInput);
-		incomePanel.add(confirmIncomeButton);
-		incomePanel.add(loadIncomeFromFileButton);
-		incomePanel.add(incomeConfirmation);
-		
-		expensePanel.add(expenseLabel);
-		expensePanel.add(expenseInput);
-		expensePanel.add(confirmExpenseButton);
-		expensePanel.add(expenseConfirmation);
-		expensePanel.add(loadExpenseFromFileButton);
-		expensePanel.add(saveExpenseButton);
-		
-		buttonsPanel.add(generateReportButton, BorderLayout.NORTH);
-		buttonsPanel.add(importReportButton, BorderLayout.SOUTH);
-		
-		jframe.add(incomePanel, BorderLayout.NORTH);
-		jframe.add(expensePanel, BorderLayout.CENTER);
-		jframe.add(buttonsPanel, BorderLayout.SOUTH);
-		
-		
-		//Wrap up stuff
-		jframe.setVisible(true);
+		// Panels, to organize page
+				JPanel incomePanel = new JPanel();
+				incomePanel.setLayout(new GridBagLayout());
+				
+				JPanel expensePanel = new JPanel();
+				expensePanel.setLayout(new GridBagLayout());
+				
+				JPanel buttonsPanel = new JPanel();
+				buttonsPanel.setLayout(new BorderLayout());
+				
+				GridBagConstraints gbc = new GridBagConstraints();
+				gbc.insets = new Insets(5, 5, 5, 5); // Add some padding
+
+				// Add components to the incomePanel
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				gbc.anchor = GridBagConstraints.WEST;
+				gbc.gridwidth = 1;
+				gbc.fill = GridBagConstraints.NONE;
+				incomePanel.add(incomeLabel, gbc);
+
+				gbc.gridx = 1;
+				gbc.gridy = 0;
+				gbc.weightx = 1.0;
+				gbc.fill = GridBagConstraints.HORIZONTAL;
+				incomePanel.add(incomeInput, gbc);
+
+				gbc.gridx = 2;
+				gbc.gridy = 0;
+				gbc.weightx = 0.0;
+				gbc.fill = GridBagConstraints.NONE;
+				incomePanel.add(confirmIncomeButton, gbc);
+
+				gbc.gridx = 3;
+				gbc.gridy = 0;
+				incomePanel.add(loadIncomeFromFileButton, gbc);
+				
+				gbc.gridx = 0;
+				gbc.gridy = 1;
+				gbc.gridwidth = 4;
+				gbc.fill = GridBagConstraints.HORIZONTAL;
+				incomePanel.add(incomeConfirmation, gbc);
+
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				gbc.anchor = GridBagConstraints.WEST;
+				gbc.gridwidth = 1;
+				gbc.fill = GridBagConstraints.NONE;
+				expensePanel.add(expenseLabel, gbc);
+
+				gbc.gridx = 1;
+				gbc.gridy = 0;
+				gbc.weightx = 1.0;
+				gbc.fill = GridBagConstraints.HORIZONTAL;
+				expensePanel.add(expenseInput, gbc);
+
+				gbc.gridx = 2;
+				gbc.gridy = 0;
+				gbc.weightx = 0.0;
+				gbc.fill = GridBagConstraints.NONE;
+				expensePanel.add(confirmExpenseButton, gbc);
+
+				gbc.gridx = 3;
+				gbc.gridy = 0;
+				expensePanel.add(loadExpenseFromFileButton, gbc);
+			
+				gbc.gridx = 4;
+				gbc.gridy = 0;
+				expensePanel.add(saveExpenseButton, gbc);
+
+				gbc.gridx = 0;
+				gbc.gridy = 1;
+				gbc.gridwidth = 5;
+				gbc.fill = GridBagConstraints.HORIZONTAL;
+				expensePanel.add(expenseConfirmation, gbc);
+				
+				
+				buttonsPanel.add(generateReportButton, BorderLayout.NORTH);
+				buttonsPanel.add(importReportButton, BorderLayout.SOUTH);
+				
+				jframe.add(incomePanel, BorderLayout.NORTH);
+				jframe.add(expensePanel, BorderLayout.CENTER);
+				jframe.add(buttonsPanel, BorderLayout.SOUTH);
+				
+				
+				// Wrap up stuff
+				jframe.setVisible(true);
 	}
 	
 
