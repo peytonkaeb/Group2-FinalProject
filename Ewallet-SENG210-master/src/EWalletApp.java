@@ -135,7 +135,9 @@ public class EWalletApp {
 
 		JButton confirmExpenseButton = new JButton("Add");
 		JButton loadExpenseFromFileButton = new JButton("Import Expense");
+		JButton saveExpenseButton = new JButton("Save Expense");
 		loadExpenseFromFileButton.addActionListener(event -> importReport());   //TEMPORARY -> Replace with intended functionality when ready
+		saveExpenseButton.addActionListener(event -> saveExpense());
 		
 		// JButton reportButton = new JButton("Print an Expense Report");
 		
@@ -253,6 +255,7 @@ public class EWalletApp {
 		expensePanel.add(confirmExpenseButton);
 		expensePanel.add(expenseConfirmation);
 		expensePanel.add(loadExpenseFromFileButton);
+		expensePanel.add(saveExpenseButton);
 		
 		buttonsPanel.add(generateReportButton, BorderLayout.NORTH);
 		buttonsPanel.add(importReportButton, BorderLayout.SOUTH);
@@ -301,6 +304,10 @@ public class EWalletApp {
 		else if (reportType == "Income") {
 			expenseCalculator.loadIncomeFile(filePath);
 		}
+	}
+	
+	private static void saveExpense() {
+		
 	}
 
 	// Used to select what kind of report to display 
